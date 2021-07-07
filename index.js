@@ -745,12 +745,12 @@ window.addEventListener('DOMContentLoaded', function() {
         return response.text();
       })
       .then(function(text) {
-        var parent = $('#examples');
-        text.split(/\n\n/g).forEach(function(line) {
-          insertSnippet(line, parent, undefined, {
-            noScroll: true
-          });
-        });
+        // var parent = $('#examples');
+        // text.split(/\n\n/g).forEach(function(line) {
+        //   insertSnippet(line, parent, undefined, {
+        //     noScroll: true
+        //   });
+        // });
       });
   });
 
