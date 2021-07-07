@@ -49,12 +49,10 @@
         <span id="expand-label">&#x2197;</span>
         <span id="collapse-label">&#x2199;</span>
       </div>
-      <textarea rows="1" cols="80" placeholder="Type your code here..." data-l10n-id="logo-ta-single-line" id="logo-ta-single-line">
-<?php
+      <textarea rows="1" cols="80" placeholder="Type your code here..." data-l10n-id="logo-ta-single-line" id="logo-ta-single-line"><?php
    echo file_get_contents('programs/' . $_GET['name'] . '.lgo');
 ?></textarea>
-      <textarea rows="20" cols="80" placeholder="Type your code here..." data-l10n-id="logo-ta-multi-line" id="logo-ta-multi-line">
-<?php
+      <textarea rows="20" cols="80" placeholder="Type your code here..." data-l10n-id="logo-ta-multi-line" id="logo-ta-multi-line"><?php
    echo file_get_contents('programs/' . $_GET['name'] . '.lgo');
 ?></textarea>
     </div>
