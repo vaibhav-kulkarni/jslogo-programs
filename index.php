@@ -24,18 +24,6 @@
 
 <body class="single">
 
-<div id="topbar" class="panel">
-  <h1 data-l10n-id="tl-title">Logo Interpreter</h1>
-  <p id="topbar-links">
-    <a data-l10n-id="tl-tests" target=_blank href="tests.html?noglobals">Tests</a>
-    | <a data-l10n-id="tl-source" target=_blank href="https://github.com/inexorabletash/jslogo">Source</a>
-    | <a title="Collaborate with TogetherJS" href="#" data-l10n-id="start-togetherjs" onclick="TogetherJS(); return false">Collaborate</a>
-    | <select id="select-lang"></select>
-  </p>
-  <p id="topbar-altlinks">
-    <a target=_blank href="language.html" data-l10n-id="tl-reference">Reference</a>
-  </p>
-</div>
 
 <div id="display-panel" class="panel">
   <div id="display">
@@ -62,58 +50,17 @@
         <span id="collapse-label">&#x2199;</span>
       </div>
       <textarea rows="1" cols="80" placeholder="Type your code here..." data-l10n-id="logo-ta-single-line" id="logo-ta-single-line">
-        TO Bilwadal
-        CS ST MAKE "A 30 MAKE "L 45    ; Clear Screen, Show Turtle, A = 30, L = 40  
-        SETSCREENCOLOR [120 60 20]     SETPC [255 255 255]  PU BK 50 PD
-        REPEAT 6 [ LT :A WAIT 5 FD :L WAIT 5 RT 2*:A WAIT 5 FD 2*:L WAIT 5 RT 2*:A WAIT 5 FD 2*:L 
-                       WAIT 5 RT 2*:A WAIT 5 FD :L WAIT 5 RT 5*:A  WAIT 5 ] wait 20    ; Concave loops are drawn
-        PU LT :A WAIT 5 FD 2*:L WAIT 5 PD WAIT 20           ; Move to draw Hexagon
-        REPEAT 6 [ FD 2*:L WAIT 5 RT 2*:A WAIT 5 ]   HT     ; Hexagon is drawn
-        PU HOME LT 90 FD 225 RT 90  PD SETPC 3 LABEL "Bilwadal_by_Dr_Barve
-      
-      END
-      
-      Make "a 30
-      Make "l 45
-
-
-      </textarea>
+<?php
+   echo file_get_contents('programs/' . $_GET['name'] . '.lgo');
+?></textarea>
       <textarea rows="20" cols="80" placeholder="Type your code here..." data-l10n-id="logo-ta-multi-line" id="logo-ta-multi-line">
-        TO Bilwadal
-        CS ST MAKE "A 30 MAKE "L 45    ; Clear Screen, Show Turtle, A = 30, L = 40  
-        SETSCREENCOLOR [120 60 20]     SETPC [255 255 255]  PU BK 50 PD
-        REPEAT 6 [ LT :A WAIT 5 FD :L WAIT 5 RT 2*:A WAIT 5 FD 2*:L WAIT 5 RT 2*:A WAIT 5 FD 2*:L 
-                       WAIT 5 RT 2*:A WAIT 5 FD :L WAIT 5 RT 5*:A  WAIT 5 ] wait 20    ; Concave loops are drawn
-        PU LT :A WAIT 5 FD 2*:L WAIT 5 PD WAIT 20           ; Move to draw Hexagon
-        REPEAT 6 [ FD 2*:L WAIT 5 RT 2*:A WAIT 5 ]   HT     ; Hexagon is drawn
-        PU HOME LT 90 FD 225 RT 90  PD SETPC 3 LABEL "Bilwadal_by_Dr_Barve
-      
-      END
-      
-      Make "a 30
-      Make "l 45
-
-      </textarea>
+<?php
+   echo file_get_contents('programs/' . $_GET['name'] . '.lgo');
+?></textarea>
     </div>
   </div>
 </div>
 
-<div id="sidebar-header" class="panel">
-  <ul>
-    <li><a data-l10n-id="sb-link-reference" id="sb-link-reference" href="#">Reference</a>
-      <span class="linkdesc">&ndash; <span data-l10n-id="sb-link-text-reference">the Logo language</span></span>
-    <li><a data-l10n-id="sb-link-library" id="sb-link-library" href="#">Library</a>
-      <span class="linkdesc">&ndash; <span data-l10n-id="sb-link-text-library">your procedures</span></span>
-    <li><a data-l10n-id="sb-link-history" id="sb-link-history" href="#">History</a>
-      <span class="linkdesc">&ndash; <span data-l10n-id="sb-link-text-history">everything you've done here</span></span>
-    <li><a data-l10n-id="sb-link-examples" id="sb-link-examples" href="#">Examples</a>
-      <span class="linkdesc">&ndash; <span data-l10n-id="sb-link-text-examples">fun things to try out</span></span>
-    <li><a data-l10n-id="sb-link-extras" id="sb-link-extras" href="#">Extras</a>
-      <span class="linkdesc">&ndash; <span data-l10n-id="sb-link-text-extras">helpful utilities</span></span>
-    <li><a data-l10n-id="sb-link-links" id="sb-link-links" href="#">Links</a>
-      <span class="linkdesc">&ndash; <span data-l10n-id="sb-link-text-links">other Logo resources</span></span>
-  </ul>
-</div>
 
 <div id="sidebar" class="panel examples">
   <iframe frameBorder="0" allowtransparency="true" src="language.html" class="choice" id="reference"></iframe>

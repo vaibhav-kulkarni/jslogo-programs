@@ -22,7 +22,7 @@ body {
 
 #display-panel {
   position: absolute;
-  top: 50px;
+  top: 10px;
   bottom: 65px;
 }
 .multi #display-panel {

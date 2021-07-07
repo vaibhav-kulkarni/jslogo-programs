@@ -1,0 +1,26 @@
+TO YINYAN 
+	CS MAKE "LEN 150 	setsc 0 SETPENSIZE [3 2] HT setpc 10 	LT 90
+	REPEAT 180 [FD :len BK :len RT 1 wait 1]
+	setPC 3  REPEAT 180 [FD :len BK :len RT 1 wait 1]
+	PU HOME LT 90  FD :len/2 PD 
+	REPEAT 180 [FD :len/2 BK :len/2 RT 1 wait 1]
+	pu FD :len pd WAIT 20
+	setpc 10 REPEAT 181 [BK :len/2 FD :len/2 LT 1 wait 1]
+	st pu fd :len  fd :len/2 rt 90   	pd  
+	repeat 180 [ fd pi*:LEN/180 rt 1 wait 1] SETPC 3
+	repeat 180 [ fd pi*:LEN/180 rt 1 wait 1]
+	RT 90 pu FD :len/2 setpc 10 pd repeat 120 [ fd :len/10 bk :len/10 rt 3 wait 1]
+	PU FD :len setpc 3 PD repeat 120 [ fd :len/10 bk :len/10 rt 3 wait 1] WAIT 20 HT
+       PU HOME fd 200 LT 90 FD 250 rt 180 PD SETPC 1 LABEL "YIN-YAN__by_Dr_Barve
+
+
+
+END
+
+Make "len 150
+Make "precision 2
+
+CS
+
+YINYAN
+

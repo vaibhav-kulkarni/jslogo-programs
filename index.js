@@ -426,20 +426,6 @@ function initInput() {
 }());
 
 
-//
-// Hook up sidebar links
-//
-(function() {
-  var sidebars = Array.from($$('#sidebar .choice')).map(
-    function(elem) { return elem.id; });
-  sidebars.forEach(function(k) {
-    $('#sb-link-' + k).addEventListener('click', function() {
-      var cl = $('#sidebar').classList;
-      sidebars.forEach(function(sb) { cl.remove(sb); });
-      cl.add(k);
-    });
-  });
-}());
 
 
 //
@@ -626,26 +612,6 @@ window.addEventListener('DOMContentLoaded', function() {
     return true;
   }
 
-  $('#savelibrary').addEventListener('click', function() {
-    var library = logo.procdefs().replace('\n', '\r\n');
-    var url = 'data:text/plain,' + encodeURIComponent(library);
-    if (!saveDataAs(url, 'logo_library.txt'))
-      Dialog.alert("Sorry, not supported by your browser");
-  });
-  $('#screenshot').addEventListener('click', function() {
-    var canvas = document.querySelector('#sandbox');
-    var url = canvas.toDataURL('image/png');
-    if (!saveDataAs(url, 'logo_drawing.png'))
-      Dialog.alert("Sorry, not supported by your browser");
-  });
-  $('#clearhistory').addEventListener('click', function() {
-    if (!confirm(__('Clear history: Are you sure?'))) return;
-    clearhistoryhook();
-  });
-  $('#clearlibrary').addEventListener('click', function() {
-    if (!confirm(__('Clear library: Are you sure?'))) return;
-    logo.run('erall');
-  });
 
   // Default translation replacement function is a no-op.
   var __ = function(s) { return s; };

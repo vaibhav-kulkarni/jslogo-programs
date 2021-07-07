@@ -1,0 +1,313 @@
+TO CIRCLE :R
+  PU
+  FD :R RT 90
+  PD REPEAT 360 [FD (:R * 2 * 3.1415926535897932384 / 360) RT 1]
+  PU LT 90 BK :R
+  PD
+END
+
+TO ARC2 :ANGLE :R
+  if :ANGLE >= 0 [
+   REPEAT :ANGLE [FD (:R * 2 * 3.1415926535897932384 / 360) RT 1]
+  ]
+  if :ANGLE < 0 [
+   REPEAT -:ANGLE [BK (:R * 2 * 3.1415926535897932384 / 360) LT 1]
+  ]
+END
+
+TO BIG_R :D :DG :R  :F                 ; BIG Rectangle
+   PU RT 90 WAIT 5 FD 2*:D + :F WAIT 5 LT 90 WAIT 5 FD :F WAIT 5 RT 135 WAIT 5 PD 
+   REPEAT 4 [ ARC2 90 :R WAIT 5 FD 2*:DG WAIT 5 ] WAIT 5   
+END  ;=================================================================
+
+TO GRID :DOT ; * * * * * ===================        GRID :DOT X :DOT is plotted
+PU BK 2*:D WAIT 5 LT 90 WAIT 5 FD 2*:D WAIT 5 RT 90 WAIT 5 
+REPEAT :DOT [ REPEAT :DOT [PD CIRCLE 2 WAIT 5 PU FD :D WAIT 5  ]                  ; 5 X 5 Grid
+              PU BK 5*:D WAIT 5 RT 90 WAIT 5 FD :D WAIT 5 LT 90 WAIT 5 ]
+END ;============================================================================================
+
+TO KARNATAKA_RANGOLI :DOT :D
+MAKE "R   0.5*:D/SQRT 2   ; RADIUS OF TURNING LINE
+MAKE "DG :D*SQRT 2        ; DIAGONAL OF THE GRID 
+MAKE "F  :R/SQRT 2         ; OFFSET OF RADIUS AT 45 DEGREES ON X & Y AXIS
+      SETSCREENCOLOR [120 60 20]     ; SCREEN COLOR 
+;=============================================================================
+      ; CLOCK WISE ARC ARC2 +ANG R  COUNTER COLCKWISE ARC RT 180 ARC2 -ANG R RT 180 
+
+;                                                                               KARNATAKA RANGOLI 1
+      MAKE "X (2*:F) MAKE "Y (:D - 2*:F) MAKE "DIS SQRT (:X*:X + :Y*:Y) 
+	MAKE "ANG (-45 + ARCTAN (:Y/:X)) 
+      
+	MAKE "X1 (4*:D - 2*:F ) MAKE "Y1 (3*:D + 2*:F) MAKE "DIS1 SQRT (:X1*:X1 + :Y1*:Y1) 
+	MAKE "ANG1 (-45 + ARCTAN (:Y1/:X1)) 
+
+	MAKE "X2 (:D + 2*:F ) MAKE "Y2 (2*:D - 2*:F) MAKE "DIS2 SQRT (:X2*:X2 + :Y2*:Y2) 
+	MAKE "ANG2 (-45 + ARCTAN (:Y1/:X1)) 
+
+      
+	CS HOME SETPC [255 255 255]   
+	                              
+      GRID :DOT
+		
+      PU HOME WAIT 10 PD CIRCLE :R-2 WAIT 20                                            ;Inner circle
+      
+	PU HOME BIG_R :D :DG :R :F  WAIT 20                                             ; BIG RECTANGLE  	
+	              
+      REPEAT 4 [ PU HOME RT REPCOUNT*90 FD (2*:D + :F) LT 90 FD (:D - :F) LT 135 PD WAIT 5 
+		FD 3*:DG WAIT 5 ARC2 180 :R WAIT 5 FD :DG WAIT 5 ARC2 90 :R WAIT 5 LT :ANG2 FD :DIS2 
+		   WAIT 5 L_ARC2 270 :R WAIT 5 FD :DIS WAIT 5 ARC2 90 :R WAIT 5 ]   WAIT 5      ; FIGURE                
+	
+	PU HOME BK 150 RT 90 BK 200 PD SETPC [0 200 250] 
+	LABEL "Karnataka_Rangoli_Pattern_1__by_Dr_Barve HT make "unused (readlist [Input:])
+;  ==================================================================================================
+
+;                                                                               KARNATAKA RANGOLI 2
+      MAKE "X (2*:F) MAKE "Y (:D - 2*:F) MAKE "DIS SQRT (:X*:X + :Y*:Y) 
+	MAKE "ANG (-45 + ARCTAN (:Y/:X)) 
+      
+	MAKE "X1 (4*:D - 2*:F ) MAKE "Y1 (3*:D + 2*:F) MAKE "DIS1 SQRT (:X1*:X1 + :Y1*:Y1) 
+	MAKE "ANG1 (-45 + ARCTAN (:Y1/:X1)) 
+
+	MAKE "X2 (:D + 2*:F ) MAKE "Y2 (2*:D - 2*:F) MAKE "DIS2 SQRT (:X2*:X2 + :Y2*:Y2) 
+	MAKE "ANG2 (-45 + ARCTAN (:Y1/:X1)) 
+
+      
+	CS HOME SETPC [255 255 255]                                 
+      GRID :DOT
+      
+	PU HOME BIG_R :D :DG :R :F  WAIT 20                                             ; BIG RECTANGLE  	
+	              
+      REPEAT 4 [ PU HOME RT REPCOUNT*90 FD (2*:D - :F) LT 90 FD (2*:D - :F) LT 45 PD ARC2 270 :R  
+	         WAIT 5 FD :DG WAIT 5 ARC2 90 :R WAIT 5 FD :DIS WAIT 5 L_ARC2 180 :R WAIT 5 FD 2*:DG 
+		   WAIT 5 L_ARC2 180 :R WAIT 5 FD :DIS WAIT 5 ARC2 90 :R WAIT 5 FD :DIS WAIT 5 
+		   L_ARC2 90 :R WAIT 5 FD :DIS WAIT 5 ]   WAIT 5      ; FIGURE                
+	
+	PU HOME BK 150 RT 90 BK 200 PD SETPC [0 200 250] 
+	LABEL "Karnataka_Rangoli_Pattern_2__by_Dr_Barve HT make "unused (readlist [Input:])
+;  ==================================================================================================
+
+;                                                                               KARNATAKA RANGOLI 3
+      MAKE "X (2*:F) MAKE "Y (:D - 2*:F) MAKE "DIS SQRT (:X*:X + :Y*:Y) 
+	MAKE "ANG (-45 + ARCTAN (:Y/:X)) 
+      
+	MAKE "X1 (4*:D - 2*:F ) MAKE "Y1 (3*:D + 2*:F) MAKE "DIS1 SQRT (:X1*:X1 + :Y1*:Y1) 
+	MAKE "ANG1 (-45 + ARCTAN (:Y1/:X1)) 
+
+	MAKE "X2 (:D + 2*:F ) MAKE "Y2 (2*:D - 2*:F) MAKE "DIS2 SQRT (:X2*:X2 + :Y2*:Y2) 
+	MAKE "ANG2 (-45 + ARCTAN (:Y1/:X1)) 
+      
+	CS HOME SETPC [255 255 255]                                 
+      GRID :DOT
+      PU HOME WAIT 10 PD CIRCLE :R-2 WAIT 20                                            ;Inner circle
+      PU HOME RT REPCOUNT*90  FD (:D + :F) LT 90 FD :F RT 135 PD               ; SMALL INNER RECTANGLE
+      
+	REPEAT 4 [  ARC2 90 :R  WAIT 5  FD :DG WAIT 5 ] WAIT 5                    
+
+	PU HOME BIG_R :D :DG :R :F  WAIT 20                                             ; BIG RECTANGLE  
+	PU HOME RT REPCOUNT*90 FD (2*:D + :F) LT 90 FD (:D + :F) RT 135 PD          ; FIRST INNER ZIG-ZAG      
+      REPEAT 4 [  ARC2 90 :R  WAIT 5  FD :DIS WAIT 5 L_ARC2 90 :R WAIT 5 FD :DIS WAIT 5
+      ARC2 90 :R WAIT 5 FD :DG WAIT 5   ]   WAIT 5                    
+	
+	PU HOME RT REPCOUNT*90 FD (2*:D - :F) LT 90 FD (2*:D + :F) RT 45 PD          ; SECOND INNER ZIG-ZAG      
+      REPEAT 4 [  ARC2 180 :R  WAIT 5  LT :ANG2 FD :DIS2 WAIT 5 L_ARC2 90 :R WAIT 5 LT :ANG2
+           FD :DIS2 WAIT 5 ]   WAIT 5        
+     PU HOME BK 150 RT 90 BK 200 PD SETPC [0 200 250] 
+	LABEL "Karnataka_Rangoli_Pattern_3__by_Dr_Barve HT make "unused (readlist [Input:])
+;=============================================================================
+
+;                                                                               KARNATAKA RANGOLI 4
+      MAKE "X (2*:F) MAKE "Y (:D - 2*:F) MAKE "DIS SQRT (:X*:X + :Y*:Y) 
+	MAKE "ANG (-45 + ARCTAN (:Y/:X)) 
+      
+	MAKE "X1 (4*:D - 2*:F ) MAKE "Y1 (3*:D + 2*:F) MAKE "DIS1 SQRT (:X1*:X1 + :Y1*:Y1) 
+	MAKE "ANG1 (-45 + ARCTAN (:Y1/:X1)) 
+      
+	CS HOME SETPC [255 255 255]                                 
+      GRID :DOT
+      PU HOME WAIT 10 PD CIRCLE :R-2 WAIT 20                                            ;Inner circle
+
+	BIG_R :D :DG :R :F  WAIT 20                                            ; BIG RECTANGLE   
+     
+    REPEAT 4 [ PU HOME RT REPCOUNT*90 WAIT 5 FD (:D - :F) WAIT 5 LT 90 WAIT 5 FD :F WAIT 5 
+      RT 45 WAIT 5 PD ARC2 90 :R   WAIT 5  FD :DG WAIT 5 ARC2 180 :R WAIT 5 FD :DIS WAIT 5
+     RT 180 WAIT 5 ARC2 -180 :R WAIT 5 BK :DG WAIT 5 ARC2 -270 :R WAIT 5 RT 180 FD :DIS
+	WAIT 5 ARC2 90 :R WAIT 5 FD :DG  WAIT 5 ARC2 90 :R WAIT 5 FD :DG WAIT 5 ] WAIT 5
+           
+     PU HOME BK 150 RT 90 BK 200 PD SETPC [0 200 250] 
+	LABEL "Karnataka_Rangoli_Pattern_4__by_Dr_Barve HT make "unused (readlist [Input:])
+;=============================================================================
+
+;                                                                               KARNATAKA RANGOLI 5
+      MAKE "X (2*:F) MAKE "Y (:D - 2*:F) MAKE "DIS SQRT (:X*:X + :Y*:Y) 
+	MAKE "ANG (-45 + ARCTAN (:Y/:X)) 
+      
+	MAKE "X1 (4*:D - 2*:F ) MAKE "Y1 (3*:D + 2*:F) MAKE "DIS1 SQRT (:X1*:X1 + :Y1*:Y1) 
+	MAKE "ANG1 (-45 + ARCTAN (:Y1/:X1)) 
+      
+
+	CS HOME SETPC [255 255 255]                                 
+      GRID :DOT
+      PU HOME WAIT 10 PD CIRCLE :R-2 WAIT 20                                            ;Inner circle
+
+	BIG_R :D :DG :R :F  WAIT 20                                            ; BIG RECTANGLE   
+     
+    REPEAT 4 [ PU HOME RT REPCOUNT*90 FD (2*:D - :F) LT 90 FD (:D + :F) RT 45 PD ARC2 180 :R   
+	WAIT 5  FD 3*:DG WAIT 5 ARC2 90 :R WAIT 5 FD :DIS WAIT 5 RT 180 
+      WAIT 5 ARC2 -270 :R RT 180 WAIT 5 FD :DIS1 WAIT 5 ] WAIT 5
+           
+     PU HOME BK 150 RT 90 BK 200 PD SETPC [0 200 250] 
+	LABEL "Karnataka_Rangoli_Pattern_5__by_Dr_Barve HT make "unused (readlist [Input:])
+;=============================================================================
+
+;                                                                               KARNATAKA RANGOLI 6
+      MAKE "X (2*:F) MAKE "Y (:D - 2*:F) MAKE "DIS SQRT (:X*:X + :Y*:Y) 
+	MAKE "ANG (-45 + ARCTAN (:Y/:X)) 
+      
+	MAKE "X1 (2*:F ) MAKE "Y1 (:D) MAKE "DIS1 SQRT (:X1*:X1 + :Y1*:Y1) 
+	MAKE "ANG1 (-45 + ARCTAN (:Y1/:X1)) 
+      
+
+	CS HOME SETPC [255 255 255]                                 
+      GRID :DOT
+      PU HOME WAIT 10 PD CIRCLE :R-2 WAIT 20                                            ;Inner circle
+
+	BIG_R :D :DG :R :F  WAIT 20                                            ; BIG RECTANGLE   
+     
+    REPEAT 4 [ PU HOME RT REPCOUNT*90 FD (:D + :F) RT 90 FD :F RT 45 PD ARC2 270 :R  WAIT 5  
+	FD :DG WAIT 5 ARC2 180 :R WAIT 5 FD :DIS WAIT 5 RT 180 WAIT 5 ARC2 -180 :R WAIT 5 BK :DG 
+	WAIT 5 ARC2 -270 :R WAIT 5 BK :DIS WAIT 5 RT 180 WAIT 5 ARC2 90 :R WAIT 5 FD :DG WAIT 5 ] WAIT 5
+           
+     PU HOME BK 150 RT 90 BK 200 PD SETPC [0 200 250] 
+	LABEL "Karnataka_Rangoli_Pattern_6__by_Dr_Barve HT make "unused (readlist [Input:])
+;=============================================================================
+
+;                                                                               KARNATAKA RANGOLI 7
+      MAKE "X (2*:F) MAKE "Y (:D - 2*:F) MAKE "DIS SQRT (:X*:X + :Y*:Y) 
+	MAKE "ANG (-45 + ARCTAN (:Y/:X))       
+	MAKE "X1 (:D + 2*:F) MAKE "Y1 (:D + 2*:F) MAKE "DIS1 SQRT (:X1*:X1 + :Y1*:Y1) 
+	MAKE "ANG1 (-45 + ARCTAN (:Y1/:X1))       
+
+	CS HOME SETPC [255 255 255]                                 
+      GRID :DOT
+      PU HOME WAIT 10 PD CIRCLE :R-2 WAIT 20                                            ;Inner circle
+
+	BIG_R :D :DG :R :F  WAIT 20                                            ; BIG RECTANGLE   
+     
+    REPEAT 4 [ PU HOME RT REPCOUNT*90 FD (2*:D - :F) LT 90 FD :F RT 45 PD ARC2 -90 :R  WAIT 5  LT 180  
+	WAIT 5 FD :DIS WAIT 5 ARC2 90 :R WAIT 5 WAIT 5 FD :DIS WAIT 5 RT 180 WAIT 5 ARC2 -270 :R  WAIT 5 
+	LT 180 FD :DIS1 WAIT 50 ARC2 270 :R WAIT 50 FD :DIS WAIT 5 RT 180 WAIT 5 ARC2 -90 :R WAIT 5 
+	RT 180 WAIT 5 FD :DIS WAIT 5 ARC2 180 :R WAIT 5 FD :DIS WAIT 5 ] WAIT 5
+           
+     PU HOME BK 150 RT 90 BK 200 PD SETPC [0 200 250] 
+	LABEL "Karnataka_Rangoli_Pattern_7__by_Dr_Barve HT make "unused (readlist [Input:])
+;=============================================================================
+
+;                                                                               KARNATAKA RANGOLI 8
+      MAKE "X (:D - 2*:F) MAKE "Y (2*:F) MAKE "DIS SQRT (:X*:X + :Y*:Y) 
+	MAKE "ANG (45 - ARCTAN :Y/:X)
+      CS HOME SETPC [255 255 255]                                 
+      GRID :DOT
+      PU HOME WAIT 10 PD CIRCLE :R-2 WAIT 20                                            ;Inner circle
+      BIG_R :D :DG :R :F  WAIT 20                                            ; BIG RECTANGLE       
+   
+    REPEAT 4 [ PU HOME RT REPCOUNT*90 FD :D - :F WAIT 5 LT 90 FD :F WAIT 5 RT 45 PD 
+	REPEAT 4 [ARC2 90 :R WAIT 5 FD :DG WAIT 5]     WAIT 5 ] WAIT 5
+     
+    REPEAT 4 [ PU HOME RT REPCOUNT*90 FD :D - :F RT 90 FD :D + :F RT 135 PD 
+	REPEAT 2 [ARC2 180 :R WAIT 5 FD :DG WAIT 5]  WAIT 5 ] WAIT 5
+    
+     PU HOME BK 150 RT 90 BK 200 PD SETPC [0 200 250] 
+	LABEL "Karnataka_Rangoli_Pattern_8__by_Dr_Barve HT make "unused (readlist [Input:])
+;=============================================================================
+      
+;                                                                               KARNATAKA RANGOLI 9
+      MAKE "X (:D - 2*:F) MAKE "Y (2*:F) MAKE "DIS SQRT (:X*:X + :Y*:Y) 
+	MAKE "ANG (45 - ARCTAN :Y/:X)
+      CS HOME SETPC [255 255 255]                                 
+      GRID :DOT
+      PU HOME WAIT 10 PD CIRCLE :R-2 WAIT 20                                            ;Inner circle
+      BIG_R :D :DG :R :F  WAIT 20                                            ; BIG RECTANGLE       
+   
+    REPEAT 4 [ PU HOME RT REPCOUNT*90 FD :D + :F RT 90 FD :F RT 45 PD ARC2 270 :R WAIT 5 FD :DG WAIT 5 
+	ARC2 180 :R WAIT 5 LT :ANG FD :DIS  RT :ANG WAIT 5 RT 180 WAIT 5 ARC2 -180 :R WAIT 5 BK :DG WAIT 5 
+	ARC2 -270 :R WAIT 5 RT :ANG WAIT 5 BK :DIS LT :ANG RT 180 ARC2 90 :R WAIT 5 FD :DG WAIT 5 ] WAIT 5
+     
+      PU HOME BK 150 RT 90 BK 200 PD SETPC [0 200 250] 
+	LABEL "Karnataka_Rangoli_Pattern_9__by_Dr_Barve HT make "unused (readlist [Input:])
+;=============================================================================
+
+; Pen color                                                                      KARNATAKA RANGOLI 10
+      MAKE "X (2*:D - 2*:F) MAKE "Y (:D + 2*:F) MAKE "DIS SQRT (:X*:X + :Y*:Y) 
+	MAKE "ANG (45 - ARCTAN :Y/:X)
+      MAKE "X1 (3*:D - 2*:F) MAKE "Y1 (2*:D + 2*:F) MAKE "DIS1 SQRT (:X1*:X1 + :Y1*:Y1) 
+      MAKE "ANG1 (45 - ARCTAN :Y1/:X1)    
+      CS HOME SETPC [255 255 255] HT                                
+      GRID :DOT
+      PU HOME WAIT 10 PD CIRCLE :R-2 WAIT 10                                            ;Inner circle
+      BIG_R :D :DG :R :F                                 ; BIG RECTANGLE
+      ST 
+   REPEAT 4 [ PU HOME RT REPCOUNT*90 FD 2*:D + :F RT 90 WAIT 5 FD :D - :F LT 45 PD ARC2 90 :R WAIT 5 
+	FD :DG WAIT 5 ARC2 90 :R WAIT 5  LT :ANG FD :DIS RT :ANG RT 180 ARC2 -90 :R BK :DG ARC2 -180 :R 
+	LT :ANG1 BK :DIS1  RT 180 ARC2 90 :R FD :DG  ]
+
+     PU HOME BK 150 RT 90 BK 200 PD SETPC [0 200 250] 
+	LABEL "Karnataka_Rangoli_Pattern_10__by_Dr_Barve HT make "unused (readlist [Input:])
+;=============================================================================
+      
+      CS HOME SETPC [255 255 255]  ; Pen color                                   KARNATAKA RANGOLI 11
+      GRID :DOT
+      PU HOME WAIT 10 PD CIRCLE :R-2 WAIT 10                                            ;Inner circle
+      BIG_R :D :DG :R :F                                 ; BIG RECTANGLE
+       
+   REPEAT 4 [ PU HOME RT REPCOUNT*90 FD :D + :F RT 90 FD 2*:D - :F LT 45 PD ARC2 180 :R WAIT 5 
+	FD (:DG - 2*:R) WAIT 5 RT 180 ARC2 -90 :R WAIT 5 RT 180 WAIT 5 FD :DG - 2*:R WAIT 5 ARC2 90 :R 
+	WAIT 5 FD 2*:R WAIT 5 RT 180 ARC2 -270 :R WAIT 5 RT 180 FD 2*:DG + 2*:R WAIT 5 ARC2 180 :R 
+	WAIT 5 FD 2*:R WAIT 5 RT 180 WAIT 5 ARC2 -90 :R WAIT 5 RT 180 WAIT 5 FD 2*:R WAIT 5 ]
+
+     PU HOME BK 150 RT 90 BK 200 PD SETPC [0 200 250] 
+	LABEL "Karnataka_Rangoli_Pattern_11__by_Dr_Barve HT make "unused (readlist [Input:])
+
+ ;================================================================================================
+
+      CS HOME SETPC [255 255 255]  ; Pen color "KARNATAKA_RANGOLI_PATTERN_12 make "unused (readlist [Input:])
+
+      GRID :DOT
+      PU HOME PD CIRCLE :R WAIT 10                                            ;Inner circle
+      BIG_R :D :DG :R  :F
+      PU HOME FD :D + :F RT 90 FD 2*:D + :F RT 45 PD 
+   REPEAT 4 [ ARC2 90 :R WAIT 5 FD :DG + 2*:R WAIT 5 RT 180 ARC2 -90 :R WAIT 5 RT 180 WAIT 5 
+	FD :DG WAIT 5 RT 180 WAIT 5 ARC2 -180 :R WAIT 5 RT 180 FD :DG + 2*:R WAIT 5 ARC2 180 :R 
+	WAIT 5 FD :DG WAIT 5 ARC2 90 :R WAIT 5 FD :DG WAIT 5 ]
+
+     PU HOME BK 150 RT 90 BK 200 PD SETPC [0 200 250] 
+	LABEL "Karnataka_Rangoli_Pattern_12__by_Dr_Barve HT make "unused (readlist [Input:])
+END ;===========================================
+
+TO KRANG ; MAIN CALLING PROGRAM ==========================================
+KARNATAKA_RANGOLI 5 50
+END ;======================================================
+
+TO L_ARC2 :THETA :RADIUS  ; * * * ==============================
+	   ; ARC turning left i.e. counter-clock-wise is plotted from turtle point
+	RT 180 ARC2 -:THETA :RADIUS RT 180
+END                      ; ===============================
+
+Make "ang 2.1316282072803e-14
+Make "ang1 0
+Make "ang2 0
+Make "dg 70.7106781186548
+Make "dis 35.3553390593274
+Make "dis1 247.487373415292
+Make "dis2 106.066017177982
+Make "f 12.5
+Make "r 17.6776695296637
+Make "x 25
+Make "x1 175
+Make "x2 75
+Make "y 25
+Make "y1 175
+Make "y2 75
+
+cs
+krang
+
