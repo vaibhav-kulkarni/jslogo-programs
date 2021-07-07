@@ -715,21 +715,21 @@ window.addEventListener('DOMContentLoaded', function() {
       return response.text();
     })
     .then(function(text) {
-      var select = $('#select-lang');
-      text.split(/\r?\n/g).forEach(function(entry) {
-        var match = /^(\w+)\s+(.*)$/.exec(entry);
-        if (!match) return;
-        var opt = document.createElement('option');
-        opt.value = match[1];
-        opt.textContent = match[2];
-        select.appendChild(opt);
-      });
-      select.value = document.body.lang;
-      select.addEventListener('change', function() {
-        var url = String(document.location);
-        url = url.replace(/[\?#].*/, '');
-        document.location = url + '?lang=' + select.value;
-      });
+      // var select = $('#select-lang');
+      // text.split(/\r?\n/g).forEach(function(entry) {
+      //   var match = /^(\w+)\s+(.*)$/.exec(entry);
+      //   if (!match) return;
+      //   var opt = document.createElement('option');
+      //   opt.value = match[1];
+      //   opt.textContent = match[2];
+      //   select.appendChild(opt);
+      // });
+      // select.value = document.body.lang;
+      // select.addEventListener('change', function() {
+      //   var url = String(document.location);
+      //   url = url.replace(/[\?#].*/, '');
+      //   document.location = url + '?lang=' + select.value;
+      // });
     });
 
   localizationComplete.then(initInput);
