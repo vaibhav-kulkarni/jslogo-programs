@@ -7,7 +7,7 @@ TO Bilwadal
 	PU LT :A WAIT 5 FD 2*:L WAIT 5 PD WAIT 20           ; Move to draw Hexagon
 	REPEAT 6 [ FD 2*:L WAIT 5 RT 2*:A WAIT 5 ]   HT     ; Hexagon is drawn
 	PU HOME LT 90 FD 225 RT 90  PD SETPC 3 LABEL "Bilwadal_by_Dr_Barve
-
+	WAIT 10
 END
 
 Make "a 30
@@ -15,5 +15,6 @@ Make "l 45
 
 cs
 
+capturestart
 Bilwadal
-
+captureend

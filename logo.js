@@ -3680,6 +3680,35 @@ function LogoInterpreter(turtle, stream, savehook)
   // Not Supported: cascade.2
   // Not Supported: transfer
 
+  // Gif save
+  let gif = null;
+  let captureIntervalId = null;
+  def("capturestart", function() {
+    gif = new GIF();
+    let canvas = document.getElementById("sandbox");
+    let ctx = canvas.getContext('2d');
+    console.log('capture start');
+    let delay = (1000/60)*5;
+    captureIntervalId = setInterval(function() {
+      gif.addFrame(canvas, {copy: true, delay});
+    }, delay);
+  })
+
+  def("captureend", function() {
+    clearInterval(captureIntervalId);
+    console.log('capture end')
+    gif.on('finished', function(blob) {
+      console.log('gif render finised')
+      let downloadUrl = URL.createObjectURL(blob);
+      let a = document.createElement("a");
+      a.href = downloadUrl;
+      a.download = "animation.gif";
+      document.body.appendChild(a);
+      a.click();
+    });
+    gif.render();
+  })
+
   // Helper for testing that wraps a result in a Promise
   def(".promise", function(value) {
     return Promise.resolve(value);

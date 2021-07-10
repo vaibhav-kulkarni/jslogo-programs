@@ -118,6 +118,7 @@
 <script src="turtle.js"></script>
 <script src="dialog.js"></script>
 <script src="index.js"></script>
+<script src="gif.js"></script>
 <!-- TogetherJS Collaboration -->
 <script src="https://togetherjs.com/togetherjs-min.js"></script>
 
