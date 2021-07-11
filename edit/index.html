@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Logo Programs</title>
+    <link href="toastr.min.css" rel="stylesheet"/>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+      #app {
+        height: 100%;
+        display: flex;
+      }
+      #source {
+        flex: 3;
+        padding-right: 3px;
+        display: flex;
+      }
+      #source textarea {
+        resize: none;
+        flex: 1;
+      }
+      #action {
+        flex: 2;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div id="source">
+        <textarea v-model="fileContent"></textarea>
+      </div>
+      <div id="action">
+        <div v-if="name !== ''" style="margin-bottom: 15px;">
+          Filename: <b>{{ name }}</b>
+          <div>
+            <button v-on:click="saveEditorContent">Save</button>
+          </div>
+        </div>
+        <div>
+          <button v-on:click="setAction('LoadAnother')" style="margin-right: 5px;">Load</button>
+          <button v-on:click="setAction('CreateNew')">Create New</button>
+        </div>
+        <div v-if="action == 'LoadAnother'" style="margin-top: 5px;">
+          <select v-model="selectedFile">
+            <option value="">Select a file</option>
+            <option v-for="file in files" :value="file">{{file}}</option>
+          </select>
+          <button v-on:click="loadSelected">OK</button>
+          <button v-on:click="setAction('')">Cancel</button>
+        </div>
+        <div v-if="action == 'CreateNew'" style="margin-top: 5px;">
+          <input v-model="newFileName" placeholder="Enter new file name"/>
+          <button v-on:click="createNew">OK</button>
+          <button v-on:click="setAction('')">Cancel</button>
+        </div>
+      </div>
+    </div>
+<script src="https://unpkg.com/vue@3.1.4/dist/vue.global.prod.js"></script>
+<script src="jquery-3.6.0.min.js"></script>
+<script src="toastr.min.js"></script>
+<script>
+const App = {
+  data() {
+    return {
+      name: '',
+      action: '',
+      files: [],
+      selectedFile: '',
+      fileContent: '',
+      newFileName: '',
+    }
+  },
+  mounted() {
+    this.loadFileList();
+  },
+  methods: {
+    loadFileList() {
+      fetch('listfiles.php')
+      .then(resp => resp.json())
+      .then(files => this.files = files)
+      .catch(error => toastr.error("Error loading file list: "+error.message));
+    },
+    setAction(action) {
+      this.action = action;
+    },
+    loadSelected() {
+      if (!this.selectedFile) {
+        toastr.error("Please select a filename");
+        return;
+      }
+      if (this.name && !confirm(`Are you sure you want to load ${this.selectedFile}? This will discard any changes in current file`)) {
+        return;
+      }
+      fetch('getfile.php?name='+encodeURIComponent(this.selectedFile))
+      .then(resp => resp.text())
+      .then(fileContent => {
+        this.fileContent = fileContent;
+        this.name = this.selectedFile;
+        this.action = '';
+        toastr.success("Loaded file successfully");
+      })
+      .catch(error => toastr.error("Error loading file: "+error.message))
+    },
+    saveEditorContent() {
+      // if (!confirm(`Are you sure you want to save the editor contents to ${this.name}?`)) {
+      //   return;
+      // }
+      fetch('savefile.php?name='+encodeURIComponent(this.name), {
+        method: 'POST',
+        body: this.fileContent,
+      })
+      .then(resp => resp.json())
+      .then(respObj => {
+        if (!respObj.isSuccess) {
+          toastr.error("Error saving file");
+        }
+        else {
+          toastr.success("Saved file successfully");
+        }
+      })
+      .catch(error => toastr.error("Error saving file: "+error.message))
+    },
+    createNew() {
+      if (!this.newFileName) {
+        toastr.error("Please enter file name");
+        return;
+      }
+      if (!/^[a-zA-Z0-9-_]*$/.test(this.newFileName)) {
+        toastr.error("Only allowed characters are: letters, numbers, - and _")
+        return;
+      }
+      if (this.name && !confirm(`Are you sure you want to create ${this.newFileName}? This will discard any changes in current file`)) {
+        return;
+      }
+      fetch('createnew.php?name='+encodeURIComponent(this.newFileName))
+      .then(resp => resp.json())
+      .then(respObj => {
+        if (!respObj.isSuccess) {
+          alert("Error creating new file");
+          return;
+        }
+        this.fileContent = '';
+        this.name = this.newFileName;
+        this.newFileName = '';
+        this.action = '';
+        toastr.success("Create new file successfully");
+        this.loadFileList();
+      })
+      .catch(error => console.log('Error creating new file', error))
+    }
+  },
+}
+Vue.createApp(App).mount("#app")
+</script>
+  </body>
+</html>
