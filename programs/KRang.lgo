@@ -99,16 +99,16 @@ MAKE "F  :R/SQRT 2         ; OFFSET OF RADIUS AT 45 DEGREES ON X & Y AXIS
 	CS HOME SETPC [255 255 255]                                 
       GRID :DOT
       PU HOME WAIT 10 PD CIRCLE :R-2 WAIT 20                                            ;Inner circle
-      PU HOME RT REPCOUNT*90  FD (:D + :F) LT 90 FD :F RT 135 PD               ; SMALL INNER RECTANGLE
+      PU HOME RT 90  FD (:D + :F) LT 90 FD :F RT 135 PD               ; SMALL INNER RECTANGLE
       
 	REPEAT 4 [  ARC2 90 :R  WAIT 5  FD :DG WAIT 5 ] WAIT 5                    
 
 	PU HOME BIG_R :D :DG :R :F  WAIT 20                                             ; BIG RECTANGLE  
-	PU HOME RT REPCOUNT*90 FD (2*:D + :F) LT 90 FD (:D + :F) RT 135 PD          ; FIRST INNER ZIG-ZAG      
+	PU HOME RT 90 FD (2*:D + :F) LT 90 FD (:D + :F) RT 135 PD          ; FIRST INNER ZIG-ZAG      
       REPEAT 4 [  ARC2 90 :R  WAIT 5  FD :DIS WAIT 5 L_ARC2 90 :R WAIT 5 FD :DIS WAIT 5
       ARC2 90 :R WAIT 5 FD :DG WAIT 5   ]   WAIT 5                    
 	
-	PU HOME RT REPCOUNT*90 FD (2*:D - :F) LT 90 FD (2*:D + :F) RT 45 PD          ; SECOND INNER ZIG-ZAG      
+	PU HOME RT 90 FD (2*:D - :F) LT 90 FD (2*:D + :F) RT 45 PD          ; SECOND INNER ZIG-ZAG      
       REPEAT 4 [  ARC2 180 :R  WAIT 5  LT :ANG2 FD :DIS2 WAIT 5 L_ARC2 90 :R WAIT 5 LT :ANG2
            FD :DIS2 WAIT 5 ]   WAIT 5        
      PU HOME BK 150 RT 90 BK 200 PD SETPC [0 200 250] 

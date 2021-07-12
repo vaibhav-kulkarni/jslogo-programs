@@ -3709,6 +3709,11 @@ function LogoInterpreter(turtle, stream, savehook)
     gif.render();
   })
 
+  // PI constant
+  def("pi", function() {
+    return Math.PI;
+  });
+
   // Helper for testing that wraps a result in a Promise
   def(".promise", function(value) {
     return Promise.resolve(value);
